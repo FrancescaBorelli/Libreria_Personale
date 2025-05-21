@@ -1,4 +1,4 @@
-package model;
+package model.libreria;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -36,13 +36,12 @@ public class GestioneDatabase {
 
     private void creaTabella() throws SQLException {
         String queryCreazione = "CREATE TABLE IF NOT EXISTS libri (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "isbn TEXT PRIMARY KEY NOT NULL," +
                 "titolo TEXT NOT NULL," +
                 "autore TEXT NOT NULL," +
-                "isbn TEXT UNIQUE," +
-                "genere TEXT," +
+                "genere TEXT NOT NULL," +
                 "valutazione INTEGER," +
-                "stato_lettura TEXT" +
+                "stato_lettura TEXT NON NULL" +
                 ");";
         try (Statement stmt = connessione.createStatement()) {
             stmt.execute(queryCreazione);

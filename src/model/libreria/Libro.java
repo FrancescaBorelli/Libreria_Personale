@@ -1,4 +1,4 @@
-package model;
+package model.libreria;
 
 public class Libro {
     private String titolo, autore, ISBN, genere;
@@ -40,9 +40,6 @@ public class Libro {
     }//getValutazione
 
 
-    public void setTitolo(String titolo) {
-        this.titolo = titolo;
-    }//setTitolo
 
     public void setStatoLettura(StatoLettura statoLettura) {
         this.statoLettura = statoLettura;
@@ -51,18 +48,6 @@ public class Libro {
     public void setValutazione(Integer valutazione) {
         this.valutazione = valutazione;
     }//setValutazione
-
-    public void setGenere(String genere) {
-        this.genere = genere;
-    }//setGenere
-
-    public void setAutore(String autore) {
-        this.autore = autore;
-    }//setAutore
-
-    public void setISBN(String ISBN) {
-        this.ISBN = ISBN;
-    }//setISBN
 
 
     @Override

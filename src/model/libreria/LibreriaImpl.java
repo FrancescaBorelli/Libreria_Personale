@@ -1,16 +1,21 @@
-package model;
+package model.libreria;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public interface Libreria {
+public interface LibreriaImpl {
 
-    void caricaDati() throws SQLException;
+    void caricaDati();
+    List<Libro> getAllLibri();
     Libro cercaLibro_ISBN(String cod);
     List<Libro> cercaLibro_autore(String autore);
     List<Libro> cercaLibro_titolo(String titolo);
     List<Libro> cercaLibro_genere(String genere);
     List<Libro> cercaLibro_statoLettura(StatoLettura stato);
+    boolean inserisciLibro(Libro l);
+    void eliminaLibro(Libro l);
+    void modificaValutazione(Libro l, Integer val);
+    void modificaStato(Libro l, StatoLettura stato);
+
 
 
 
