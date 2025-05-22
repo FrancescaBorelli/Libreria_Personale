@@ -6,7 +6,7 @@ public interface LibreriaImpl {
 
     void caricaDati();
     List<Libro> getAllLibri();
-    Libro cercaLibro_ISBN(String cod);
+    List<Libro> cercaLibro_ISBN(String cod);
     List<Libro> cercaLibro_autore(String autore);
     List<Libro> cercaLibro_titolo(String titolo);
     List<Libro> cercaLibro_genere(String genere);

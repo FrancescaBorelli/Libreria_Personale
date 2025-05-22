@@ -17,7 +17,7 @@ public class LibreriaSqLite implements LibreriaImpl {
 
 
     public List<Libro> getLibri() {
-        return this.libri;
+        return List.copyOf(libri);
     }//getLibri
 
     @Override
@@ -52,11 +52,12 @@ public class LibreriaSqLite implements LibreriaImpl {
 
 
     @Override
-    public Libro cercaLibro_ISBN(String cod) {
+    public List<Libro> cercaLibro_ISBN(String cod) {
+       List<Libro> res= new LinkedList<>();
         for (Libro libro : libri) {
-            if (libro.getISBN().equals(cod)) return libro;
+            if (libro.getISBN().equals(cod)) res.add(libro);
         }
-        return null;
+        return res;
     }//cercaLibro_ISBN
 
     @Override
