@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class GestioneDatabase {
     private static GestioneDatabase singleton;
     private Connection connessione= null;
-    private static final String url="jdbc:sqlite:./libreria_database.db";
+    private static final String url="jdbc:sqlite:./libreria2_database.db";
 
     private GestioneDatabase(){
         try {
@@ -24,7 +24,7 @@ public class GestioneDatabase {
 
 
    public static GestioneDatabase getInstance(){
-        if(singleton!=null)singleton=new GestioneDatabase();
+        if(singleton==null)singleton=new GestioneDatabase();
         return singleton;
    }//getIstance
 
@@ -40,8 +40,8 @@ public class GestioneDatabase {
                 "titolo TEXT NOT NULL," +
                 "autore TEXT NOT NULL," +
                 "genere TEXT NOT NULL," +
-                "valutazione INTEGER," +
-                "stato_lettura TEXT NON NULL" +
+                "stato_lettura TEXT NOT NULL," +
+                "valutazione INTEGER" +
                 ");";
         try (Statement stmt = connessione.createStatement()) {
             stmt.execute(queryCreazione);

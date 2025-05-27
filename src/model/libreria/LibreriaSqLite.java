@@ -16,10 +16,6 @@ public class LibreriaSqLite implements LibreriaImpl {
     }//LibreriaImpl
 
 
-    public List<Libro> getLibri() {
-        return List.copyOf(libri);
-    }//getLibri
-
     @Override
     public void caricaDati() {
         String query = "SELECT * FROM libri";
@@ -30,11 +26,11 @@ public class LibreriaSqLite implements LibreriaImpl {
 
             while (rs.next()) {
                 Libro libro = new Libro(
+                        rs.getString("isbn"),
                         rs.getString("titolo"),
                         rs.getString("autore"),
-                        rs.getString("isbn"),
                         rs.getString("genere"),
-                        (StatoLettura) rs.getObject("stato_lettura"),
+                        StatoLettura.valueOf(rs.getString("stato_lettura")),
                         rs.getInt("valutazione")
                 );
                 libri.add(libro);
@@ -43,11 +39,13 @@ public class LibreriaSqLite implements LibreriaImpl {
 
         }
 
+
+
     }//caricaDati
 
     @Override
     public List<Libro> getAllLibri() {
-        return this.libri;
+        return new LinkedList<>(libri);
     }
 
 
@@ -79,12 +77,19 @@ public class LibreriaSqLite implements LibreriaImpl {
 
     @Override
     public List<Libro> cercaLibro_genere(String genere) {
-        return List.of();
+        LinkedList<Libro> res = new LinkedList<>();
+        for (Libro libro : libri)
+            if (libro.getGenere().equals(genere)) res.add(libro);
+        return res;
     }
 
+
     @Override
-    public List<Libro> cercaLibro_statoLettura(StatoLettura stato) {
-        return List.of();
+    public List<Libro> cercaLibro_statoLettura(StatoLettura stato){
+        LinkedList<Libro> res = new LinkedList<>();
+        for (Libro libro : libri)
+            if (libro.getStatoLettura().equals(stato)) res.add(libro);
+        return res;
     }
 
     @Override
@@ -109,43 +114,46 @@ public class LibreriaSqLite implements LibreriaImpl {
     }//inserisciLibri
 
     @Override
-    public void eliminaLibro(Libro l) {
+    public boolean eliminaLibro(Libro l) {
         String query = "DELETE FROM libri WHERE isbn=?";
         try {
             PreparedStatement statement = db.getConnessione().prepareStatement(query);
             statement.setString(1, l.getISBN());
+            statement.executeUpdate();
         }catch(SQLException se){
-
+            return false;
         }
         libri.remove(l);
-
+        return true;
     }
 
     @Override
-    public void modificaValutazione(Libro l, Integer val) {
-        String query = "UPDATE FROM libri SET valutazione=? WHERE isbn=";
+    public boolean modificaValutazione(Libro l, Integer val) {
+        String query = "UPDATE libri SET valutazione=? WHERE isbn=?";
         try {
             PreparedStatement statement = db.getConnessione().prepareStatement(query);
             statement.setInt(1, l.getValutazione());
             statement.setString(2, l.getISBN());
             statement.executeUpdate();
         }catch(SQLException se){
-
+            return false;
         }
         l.setValutazione(val);
+        return true;
     }
 
     @Override
-    public void modificaStato(Libro l, StatoLettura stato) {
-        String query = "UPDATE FROM libri SET stato_lettura=? WHERE isbn=";
+    public boolean modificaStato(Libro l, StatoLettura stato) {
+        String query = "UPDATE libri SET stato_lettura=? WHERE isbn=?";
         try {
             PreparedStatement statement = db.getConnessione().prepareStatement(query);
-            statement.setObject(1, l.getStatoLettura());
+            statement.setString(1,stato.toString());
             statement.setString(2, l.getISBN());
             statement.executeUpdate();
         }catch(SQLException se){
-
+            return false;
         }
         l.setStatoLettura(stato);
+        return true;
     }
 }

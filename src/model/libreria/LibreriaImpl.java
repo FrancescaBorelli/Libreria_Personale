@@ -12,9 +12,9 @@ public interface LibreriaImpl {
     List<Libro> cercaLibro_genere(String genere);
     List<Libro> cercaLibro_statoLettura(StatoLettura stato);
     boolean inserisciLibro(Libro l);
-    void eliminaLibro(Libro l);
-    void modificaValutazione(Libro l, Integer val);
-    void modificaStato(Libro l, StatoLettura stato);
+    boolean eliminaLibro(Libro l);
+    boolean modificaValutazione(Libro l, Integer val);
+    boolean modificaStato(Libro l, StatoLettura stato);
 
 
 

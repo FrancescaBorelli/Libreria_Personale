@@ -6,10 +6,10 @@ public class Libro {
     private Integer valutazione;
 
 
-    public Libro(String titolo, String autore, String cod, String genere, StatoLettura stato, Integer voto){
+    public Libro(String cod, String titolo, String autore , String genere, StatoLettura stato, Integer voto){
+        this.ISBN=cod;
         this.titolo=titolo;
         this.autore=autore;
-        this.ISBN=cod;
         this.genere=genere;
         this.statoLettura=stato;
         this.valutazione=voto;
