@@ -3,8 +3,6 @@ package model.libreria;
 import model.strategy.*;
 import view.LibreriaGrafica;
 import view.Observer;
-
-import java.util.LinkedList;
 import java.util.List;
 
 //pattern Bridge
@@ -28,39 +26,39 @@ public class Libreria {
 
     public void getLibri(){
         libriVisualizzati=lib.getAllLibri();
-        observer.notifica();
+        observer.aggiorna();
     }//getLibri
 
     public void getLibro(String ISBN){
         libriVisualizzati=this.lib.cercaLibro_ISBN(ISBN);
-        observer.notifica();
+        observer.aggiorna();
     }//getLibro
 
     public void getLibroByAutore(String autore){
         libriVisualizzati=this.lib.cercaLibro_autore(autore);
-        observer.notifica();
+        observer.aggiorna();
     }//getLibroByAutore
 
     public void getLibroByTitolo(String titolo){
         libriVisualizzati=this.lib.cercaLibro_titolo(titolo);
-        observer.notifica();
+        observer.aggiorna();
     }//getLibroByTitolo
 
     public void getLibroByGenere(String genere){
         libriVisualizzati=this.lib.cercaLibro_genere(genere);
-        observer.notifica();
+        observer.aggiorna();
     }//getLibro
 
     public void getLibroByStato(StatoLettura stato){
          libriVisualizzati=this.lib.cercaLibro_statoLettura(stato);
-         observer.notifica();
+         observer.aggiorna();
     }//getLibroByStato
 
     public boolean aggiungi(Libro l){
         boolean res= this.lib.inserisciLibro(l);
        if(res) {
            libriVisualizzati.add(l);
-           observer.notifica();
+           observer.aggiorna();
        }
        return res;
     }//aggiungi
@@ -69,7 +67,7 @@ public class Libreria {
         boolean res= this.lib.eliminaLibro(l);
         if(res) {
             libriVisualizzati.remove(l);
-            observer.notifica();
+            observer.aggiorna();
         }
         return res;
     }//elimina
@@ -77,14 +75,14 @@ public class Libreria {
     public boolean inserisciValutazione(Libro l, Integer v){
        boolean res= this.lib.modificaValutazione(l,v);
         if(res)
-            observer.notifica();
+            observer.aggiorna();
         return res;
     }//inserisciValutazione
 
     public boolean inserisciStato(Libro l, StatoLettura s){
         boolean res= this.lib.modificaStato(l,s);
         if(res)
-            observer.notifica();
+            observer.aggiorna();
         return res;
     }//modificaStato
 
@@ -92,7 +90,7 @@ public class Libreria {
     public void cambiaOrdinamento(String s){
         strategy=setStrategy(s);
         strategy.ordina(libriVisualizzati);
-        observer.notifica();
+        observer.aggiorna();
     }//cambiaOrdinamento
 
     private StrategiaOrdinamento setStrategy(String s) {
