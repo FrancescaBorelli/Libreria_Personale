@@ -1,7 +1,6 @@
 package model.libreria;
 
 import model.strategy.*;
-import view.LibreriaGrafica;
 import view.Observer;
 import java.util.List;
 
@@ -116,7 +115,8 @@ public class Libreria {
         return res;
     }//setSteategy
 
-    public void attach(LibreriaGrafica grafica) {
+    public void attach(Observer grafica) {
         observer=grafica;
     }
+
 }//Libreria

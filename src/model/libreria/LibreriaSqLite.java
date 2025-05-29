@@ -53,7 +53,7 @@ public class LibreriaSqLite implements LibreriaImpl {
     public List<Libro> cercaLibro_ISBN(String cod) {
        List<Libro> res= new LinkedList<>();
         for (Libro libro : libri) {
-            if (libro.getISBN().equals(cod)) res.add(libro);
+            if (libro.getISBN().equalsIgnoreCase(cod)) res.add(libro);
         }
         return res;
     }//cercaLibro_ISBN
@@ -62,7 +62,7 @@ public class LibreriaSqLite implements LibreriaImpl {
     public List<Libro> cercaLibro_autore(String autore) {
         LinkedList<Libro> res = new LinkedList<>();
         for (Libro libro : libri)
-            if (libro.getAutore().equals(autore)) res.add(libro);
+            if (libro.getAutore().equalsIgnoreCase(autore)) res.add(libro);
         return res;
     }
 
@@ -70,7 +70,7 @@ public class LibreriaSqLite implements LibreriaImpl {
     public List<Libro> cercaLibro_titolo(String titolo) {
         LinkedList<Libro> res = new LinkedList<>();
         for (Libro libro : libri)
-            if (libro.getTitolo().equals(titolo)) res.add(libro);
+            if (libro.getTitolo().equalsIgnoreCase(titolo)) res.add(libro);
         return res;
     }
 
@@ -79,7 +79,7 @@ public class LibreriaSqLite implements LibreriaImpl {
     public List<Libro> cercaLibro_genere(String genere) {
         LinkedList<Libro> res = new LinkedList<>();
         for (Libro libro : libri)
-            if (libro.getGenere().equals(genere)) res.add(libro);
+            if (libro.getGenere().equalsIgnoreCase(genere)) res.add(libro);
         return res;
     }
 
@@ -95,7 +95,6 @@ public class LibreriaSqLite implements LibreriaImpl {
     @Override
     public boolean inserisciLibro(Libro l) {
         String query = "INSERT INTO libri(isbn,titolo,autore,genere,valutazione,stato_lettura) VALUES (?,?,?,?,?,?)";
-
         try {
             PreparedStatement statement = db.getConnessione().prepareStatement(query);
             statement.setString(1, l.getISBN());
@@ -106,7 +105,6 @@ public class LibreriaSqLite implements LibreriaImpl {
             statement.setObject(6, l.getStatoLettura());
             statement.executeUpdate();
         } catch (SQLException se) {
-            System.out.println("Non è possibile inserire il libro! Controlla i campi nuovamente");
             return false;
         }
         libri.add(l);
