@@ -15,7 +15,7 @@ public interface LibreriaImpl {
     boolean eliminaLibro(Libro l);
     boolean modificaValutazione(Libro l, Integer val);
     boolean modificaStato(Libro l, StatoLettura stato);
-
+    void chiudiConnessione();
 
 
 

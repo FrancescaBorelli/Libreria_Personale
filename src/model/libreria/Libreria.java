@@ -25,31 +25,37 @@ public class Libreria {
 
     public void getLibri(){
         libriVisualizzati=lib.getAllLibri();
+        strategy.ordina(libriVisualizzati);
         observer.aggiorna();
     }//getLibri
 
     public void getLibro(String ISBN){
         libriVisualizzati=this.lib.cercaLibro_ISBN(ISBN);
+        strategy.ordina(libriVisualizzati);
         observer.aggiorna();
     }//getLibro
 
     public void getLibroByAutore(String autore){
         libriVisualizzati=this.lib.cercaLibro_autore(autore);
+        strategy.ordina(libriVisualizzati);
         observer.aggiorna();
     }//getLibroByAutore
 
     public void getLibroByTitolo(String titolo){
         libriVisualizzati=this.lib.cercaLibro_titolo(titolo);
+        strategy.ordina(libriVisualizzati); // l'ordinamento si deve mantenere secondo il criterio specificato
         observer.aggiorna();
     }//getLibroByTitolo
 
     public void getLibroByGenere(String genere){
         libriVisualizzati=this.lib.cercaLibro_genere(genere);
+        strategy.ordina(libriVisualizzati);
         observer.aggiorna();
     }//getLibro
 
     public void getLibroByStato(StatoLettura stato){
          libriVisualizzati=this.lib.cercaLibro_statoLettura(stato);
+         strategy.ordina(libriVisualizzati);
          observer.aggiorna();
     }//getLibroByStato
 
@@ -57,6 +63,7 @@ public class Libreria {
         boolean res= this.lib.inserisciLibro(l);
        if(res) {
            libriVisualizzati.add(l);
+           strategy.ordina(libriVisualizzati);
            observer.aggiorna();
        }
        return res;
@@ -66,6 +73,7 @@ public class Libreria {
         boolean res= this.lib.eliminaLibro(l);
         if(res) {
             libriVisualizzati.remove(l);
+            strategy.ordina(libriVisualizzati);
             observer.aggiorna();
         }
         return res;
@@ -73,8 +81,10 @@ public class Libreria {
 
     public boolean inserisciValutazione(Libro l, Integer v){
        boolean res= this.lib.modificaValutazione(l,v);
-        if(res)
+        if(res) {
+            strategy.ordina(libriVisualizzati);
             observer.aggiorna();
+        }
         return res;
     }//inserisciValutazione
 
@@ -118,5 +128,9 @@ public class Libreria {
     public void attach(Observer grafica) {
         observer=grafica;
     }
+
+    public void chiudiFile(){
+        lib.chiudiConnessione();
+    }//chiudiFile
 
 }//Libreria

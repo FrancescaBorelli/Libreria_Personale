@@ -154,4 +154,9 @@ public class LibreriaSqLite implements LibreriaImpl {
         l.setStatoLettura(stato);
         return true;
     }
+
+    @Override
+    public void chiudiConnessione() {
+        db.chiudiConnessione();
+    }
 }
