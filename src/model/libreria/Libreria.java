@@ -1,6 +1,7 @@
 package model.libreria;
 
 import model.strategy.*;
+import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 import view.Observer;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Libreria {
         this.lib= new LibreriaSqLite();
         lib.caricaDati();
         libriVisualizzati=lib.getAllLibri();
+        strategy= new OrdinamentoDefault();
     }//Libreria
 
     public List<Libro> getLibriDaVisualizzare(){
