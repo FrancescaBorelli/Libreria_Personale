@@ -1,7 +1,6 @@
 package model.libreria;
 
 import model.strategy.*;
-import net.bytebuddy.dynamic.loading.ClassReloadingStrategy;
 import view.Observer;
 import java.util.List;
 
